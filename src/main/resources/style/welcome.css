@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "Swis721 Blk BT";
+  src: url("/fonts/SWISS721BLACKBT.TTF");
+}
+
+.root {
+  -fx-background-color: #0B0F1C;
+  -fx-padding: 120 0 120 0;
+}
+
+.label {
+  -fx-font-family: "Swis721 Blk BT";
+  -fx-font-size: 130px;
+  -fx-text-fill: white;
+}
+.top-text {
+  -fx-font-family: "Swis721 Blk BT";
+  -fx-font-size: 170px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+  -fx-text-alignment: center;
+}
+
+.start-icon {
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.2, 0, 2);
+}
+

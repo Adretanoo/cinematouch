@@ -1,0 +1,44 @@
+@font-face {
+  font-family: "Unbounded Bold";
+  src: url("/fonts/Unbounded-Bold.ttf");
+}
+
+@font-face {
+  font-family: "ProzaLibre Regular";
+  src: url("/fonts/ProzaLibre-Regular.ttf");
+}
+
+
+.button-text {
+  -fx-font-family: "ProzaLibre Regular";
+  -fx-font-size: 80px; /* Зменшений розмір шрифта */
+  -fx-font-weight: bold;
+}
+
+.button {
+  -fx-font-family: "Unbounded Bold";
+  -fx-padding: 15 25 5 25;
+  -fx-background-radius: 20px;
+  -fx-background-color: white;
+  -fx-alignment: center;
+  -fx-max-width: 250px;
+  -fx-max-height: 470px;
+}
+
+.button:hover {
+  -fx-background-color: #dddddd; /* Зміна кольору при наведенні */
+}
+
+.image-view {
+  -fx-fit-height: 250px;
+  -fx-fit-width: 300px;
+}
+
+.ticket-img{
+  -fx-fit-height: 250px;
+  -fx-fit-width: 300px;
+}
+.burger-img{
+  -fx-fit-height: 200px;
+  -fx-fit-width: 301px;
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8"
+  xmlns:fx="http://javafx.com/fxml"
+  fx:controller="com.adrian.application.controller.WelcomeController"
+  fx:id="root"
+  alignment="TOP_CENTER"
+  spacing="40"
+  onMouseClicked="#handleClick"
+  stylesheets="/style/welcome.css"
+  prefHeight="1080" prefWidth="1920"
+  styleClass="root">
+
+  <Label fx:id="topLabel"
+    text="CINEMA&#10;TOUCH"
+    styleClass="top-text" />
+
+  <!-- Spacer -->
+  <Pane VBox.vgrow="ALWAYS"/>
+
+  <ImageView fx:id="imageView"
+    fitWidth="60"
+    preserveRatio="true"
+    styleClass="start-icon"/>
+</VBox>
