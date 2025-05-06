@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+  fx:controller="com.adrian.application.controller.LoginController"
+  stylesheets="@/style/login.css"
+  styleClass="login-root"
+  fx:id="rootPane">
+
+  <StackPane fx:id="cardWrapper" styleClass="login-card-wrapper">
+    <VBox fx:id="loginBox" alignment="CENTER" spacing="20" maxWidth="440" styleClass="login-box">
+      <AnchorPane maxHeight="20" maxWidth="440" prefHeight="20" prefWidth="440">
+        <Button fx:id="closeButton" text="✕" AnchorPane.rightAnchor="0" styleClass="close-button" />
+      </AnchorPane>
+
+      <Label text="Login" styleClass="login-title" />
+
+      <ImageView fx:id="qrImage"
+        fitWidth="180" fitHeight="180"
+        pickOnBounds="true"
+        preserveRatio="true" />
+
+      <TextField fx:id="loginField"
+        promptText="Email"
+        maxWidth="300"
+        styleClass="login-field" />
+
+      <PasswordField fx:id="passwordField"
+        promptText="Password"
+        maxWidth="300"
+        styleClass="login-field" />
+
+      <Button fx:id="signInButton"
+        text="Log In"
+        maxWidth="300"
+        styleClass="login-button" />
+    </VBox>
+  </StackPane>
+
+</StackPane>

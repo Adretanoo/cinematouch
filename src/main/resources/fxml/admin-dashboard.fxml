@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+  fx:controller="com.adrian.application.controller.AdminDashboardController"
+  stylesheets="@/style/admin-dashboard.css">
+
+  <left>
+    <VBox fx:id="sidebar" spacing="10" styleClass="sidebar">
+      <Label text="Admin Panel" styleClass="sidebar-title" />
+      <Button text="🎬 Movies" styleClass="nav-button" />
+      <Button text="📅 Sessions" styleClass="nav-button" />
+      <Button text="🎟 Tickets" styleClass="nav-button" />
+      <Button text="🍔 Food Items" styleClass="nav-button" />
+      <Button text="🛒 Orders" styleClass="nav-button" />
+      <Button text="💳 Payments" styleClass="nav-button" />
+      <Button text="👥 Staff" styleClass="nav-button" />
+      <Button text="🎁 Promotions" styleClass="nav-button" />
+    </VBox>
+  </left>
+
+  <top>
+    <HBox styleClass="header-bar" spacing="10" alignment="CENTER_RIGHT">
+      <Label text="Admin Dashboard" styleClass="header-title" />
+      <Region HBox.hgrow="ALWAYS" />
+      <Button text="Logout" styleClass="logout-button" />
+    </HBox>
+  </top>
+
+  <center>
+    <StackPane fx:id="mainContent" styleClass="main-content">
+      <Label text="👈 Select a section from the menu" styleClass="placeholder-text" />
+    </StackPane>
+  </center>
+</BorderPane>

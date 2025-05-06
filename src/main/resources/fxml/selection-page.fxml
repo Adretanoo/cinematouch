@@ -2,7 +2,6 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.VBox?>
@@ -12,64 +11,90 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-
+<?import javafx.scene.layout.Region?>
 <BorderPane xmlns="http://javafx.com/javafx/8"
   xmlns:fx="http://javafx.com/fxml"
   fx:controller="com.adrian.application.controller.SelectionController"
   stylesheets="/style/selection.css"
-  style="-fx-background-color: #0f111a;">
+  styleClass="root">
+
+
+  <top>
+    <HBox alignment="TOP_RIGHT" style="-fx-padding: -100 30 0 0;">
+      <Region HBox.hgrow="ALWAYS"/>
+      <Button fx:id="settingsButton" onAction="#handleSettingsClick" styleClass="settings-button">
+        <graphic>
+          <ImageView styleClass="settings-icon" pickOnBounds="true">
+            <image>
+              <Image url="/images/icon-settings.png"/>
+            </image>
+          </ImageView>
+        </graphic>
+      </Button>
+    </HBox>
+  </top>
 
   <center>
-    <VBox alignment="CENTER" spacing="30">
+    <VBox alignment="CENTER" spacing="0">
 
-      <!-- Welcome title -->
-      <VBox alignment="CENTER" spacing="10">
-        <Text text="Привіт!" style="-fx-font-family: 'Unbounded Bold'; -fx-font-size: 48px; -fx-fill: white;" />
-        <Text text="ласкаво просимо" style="-fx-font-family: 'ProzaLibre Regular'; -fx-font-size: 18px; -fx-fill: #cccccc;" />
+
+      <VBox styleClass="vbox-text" alignment="CENTER" spacing="10">
+        <Text text="Привіт!"
+          styleClass="welcome-text-1"/>
+        <Text text="ласкаво просимо"
+          styleClass="welcome-text-2"/>
       </VBox>
 
-      <!-- Language & settings -->
-      <HBox alignment="CENTER_RIGHT" spacing="10">
-        <Label text="Мова інтерфейсу" style="-fx-text-fill: white; -fx-font-size: 14px;" />
-        <ComboBox fx:id="languageBox">
-          <items>
-            <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Ukraine" />
-              <String fx:value="English" />
-            </FXCollections>
-          </items>
-        </ComboBox>
-        <Button text="⚙" fx:id="settingsButton" style="-fx-font-size: 18px; -fx-background-color: transparent; -fx-text-fill: white;" />
-      </HBox>
 
-      <!-- Buttons -->
-      <HBox alignment="CENTER" spacing="100">
-        <Button fx:id="ticketsButton" onAction="#handleTicketsClick" styleClass="button">
-          <graphic>
-            <VBox alignment="CENTER" spacing="5">
-              <Text text="КВИТКИ" styleClass="button-text" />
-              <ImageView styleClass="ticket-img">
-                <image>
-                  <Image url="/images/ticket.png" />
-                </image>
-              </ImageView>
-            </VBox>
-          </graphic>
-        </Button>
+      <VBox styleClass="elements-block">
+        <!-- Language & settings -->
+        <VBox styleClass="language-bar"
+          alignment="TOP_RIGHT"
+          spacing="5">
+          <Label text="Мова інтерфейсу"
+            styleClass="label"
+            prefWidth="170"
+            alignment="CENTER_LEFT"/>
+          <ComboBox fx:id="languageBox"
+            styleClass="combo-box"
+            value="Українська">
+            <items>
+              <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Українська"/>
+                <String fx:value="English"/>
+              </FXCollections>
+            </items>
+          </ComboBox>
+        </VBox>
+        <!-- Buttons -->
+        <HBox styleClass="hbox-button" alignment="CENTER" spacing="200">
+          <Button fx:id="ticketsButton" onAction="#handleTicketsClick" styleClass="button">
+            <graphic>
+              <VBox alignment="CENTER" spacing="5">
+                <Text styleClass="button-text" text="КВИТКИ"/>
+                <ImageView styleClass="ticket-img">
+                  <image>
+                    <Image url="/images/ticket.png"/>
+                  </image>
+                </ImageView>
+              </VBox>
+            </graphic>
+          </Button>
 
-        <Button fx:id="menuButton" onAction="#handleMenuClick" styleClass="button">
-          <graphic>
-            <VBox alignment="CENTER" spacing="5">
-              <Text text="МЕНЮ" styleClass="button-text" />
-              <ImageView styleClass="burger-img">
-                <image>
-                  <Image url="/images/burger.png" />
-                </image>
-              </ImageView>
-            </VBox>
-          </graphic>
-        </Button>
-      </HBox>
+          <Button fx:id="menuButton" onAction="#handleMenuClick" styleClass="button">
+            <graphic>
+              <VBox alignment="CENTER" spacing="5">
+                <Text text="МЕНЮ" styleClass="button-text"/>
+                <ImageView styleClass="burger-img">
+                  <image>
+                    <Image url="/images/burger.png"/>
+                  </image>
+                </ImageView>
+              </VBox>
+            </graphic>
+          </Button>
+        </HBox>
+      </VBox>
 
     </VBox>
   </center>

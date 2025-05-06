@@ -20,7 +20,6 @@
     text="CINEMA&#10;TOUCH"
     styleClass="top-text" />
 
-  <!-- Spacer -->
   <Pane VBox.vgrow="ALWAYS"/>
 
   <ImageView fx:id="imageView"
