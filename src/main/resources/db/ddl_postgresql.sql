@@ -59,10 +59,11 @@ CREATE TABLE ticket
 CREATE INDEX idx_ticket_session_id ON ticket (session_id);
 CREATE INDEX idx_ticket_seat_id ON ticket (seat_id);
 
--- Таблиця food_item
+
 CREATE TABLE food_item
 (
     id        SERIAL PRIMARY KEY,
+    name      VARCHAR(255) NOT NULL,
     price     DECIMAL(10, 2) NOT NULL,
     available BOOLEAN DEFAULT TRUE
 );
@@ -85,6 +86,8 @@ CREATE TABLE orders
     total_price    DECIMAL(10, 2)            NOT NULL,
     payment_status order_payment_status_enum NOT NULL
 );
+ALTER TABLE orders
+    ADD COLUMN food_item_ids INT[] NULL;
 
 -- Таблиця order_food_items
 CREATE TABLE order_food_items
@@ -114,12 +117,15 @@ CREATE TABLE payment
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Таблиця promotion
+DROP TABLE IF EXISTS promotion;
+
 CREATE TABLE promotion
 (
     id               SERIAL PRIMARY KEY,
-    name             VARCHAR(255)  NOT NULL,
-    discount_percent DECIMAL(5, 2) NOT NULL,
-    start_date       DATE          NOT NULL,
-    end_date         DATE          NOT NULL
+    name             VARCHAR(255)    NOT NULL,
+    discount_percent DECIMAL(5, 2)   NOT NULL,
+    start_date       DATE            NOT NULL,
+    end_date         DATE            NOT NULL,
+    description      TEXT,
+    image_path       VARCHAR(255)
 );
