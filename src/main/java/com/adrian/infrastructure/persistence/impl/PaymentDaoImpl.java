@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 
 import com.adrian.domain.entities.Payment;
@@ -6,9 +6,9 @@ import com.adrian.domain.enums.PaymentStatus;
 import com.adrian.infrastructure.persistence.dao.PaymentDao;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class PaymentDaoImpl extends AbstractJdbcDao<Payment, Long> implements PaymentDao {
 
     @Override

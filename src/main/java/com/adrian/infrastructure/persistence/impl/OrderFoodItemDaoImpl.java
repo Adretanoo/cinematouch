@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 
 import com.adrian.domain.entities.OrderFoodItem;
@@ -9,7 +9,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class OrderFoodItemDaoImpl implements OrderFoodItemDao {
     @Override
     public void insert(OrderFoodItem ofi) {

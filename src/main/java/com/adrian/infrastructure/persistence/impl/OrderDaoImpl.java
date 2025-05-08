@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 import com.adrian.domain.entities.Order;
 import com.adrian.domain.enums.OrderPaymentStatus;
@@ -9,7 +9,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class OrderDaoImpl extends AbstractJdbcDao<Order, Long> implements OrderDao {
 
     @Override protected String getTableName()            { return "orders"; }

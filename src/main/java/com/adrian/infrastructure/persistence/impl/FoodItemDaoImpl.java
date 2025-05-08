@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 import com.adrian.domain.entities.FoodItem;
 import com.adrian.infrastructure.persistence.dao.FoodItemDao;
@@ -6,10 +6,12 @@ import com.adrian.infrastructure.persistence.dao.FoodItemDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.springframework.stereotype.Repository;
 
 /**
  * JDBC-реалізація FoodItemDao.
  */
+@Repository
 public class FoodItemDaoImpl extends AbstractJdbcDao<FoodItem, Long> implements FoodItemDao {
 
     @Override

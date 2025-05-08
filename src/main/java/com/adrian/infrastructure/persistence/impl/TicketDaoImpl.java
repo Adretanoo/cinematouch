@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 
 import com.adrian.domain.entities.Ticket;
@@ -7,11 +7,12 @@ import com.adrian.infrastructure.persistence.dao.TicketDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.math.BigDecimal;
+import org.springframework.stereotype.Repository;
 
 /**
  * JDBC implementation of TicketDao.
  */
+@Repository
 public class TicketDaoImpl extends AbstractJdbcDao<Ticket, Long> implements TicketDao {
 
     @Override

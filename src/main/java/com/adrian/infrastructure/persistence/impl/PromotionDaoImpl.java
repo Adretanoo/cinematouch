@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 import com.adrian.domain.entities.Promotion;
 import com.adrian.infrastructure.persistence.dao.PromotionDao;
@@ -6,7 +6,9 @@ import com.adrian.infrastructure.persistence.dao.PromotionDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class PromotionDaoImpl extends AbstractJdbcDao<Promotion, Long> implements PromotionDao {
 
     @Override
