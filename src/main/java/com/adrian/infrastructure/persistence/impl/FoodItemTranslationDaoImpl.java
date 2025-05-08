@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 import com.adrian.domain.entities.FoodItemTranslation;
 import com.adrian.infrastructure.persistence.dao.FoodItemTranslationDao;
@@ -6,10 +6,13 @@ import com.adrian.infrastructure.persistence.dao.FoodItemTranslationDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.springframework.stereotype.Repository;
 
 /**
  * JDBC-реалізація FoodItemTranslationDao.
  */
+
+@Repository
 public class FoodItemTranslationDaoImpl
     extends AbstractJdbcDao<FoodItemTranslation, Long>
     implements FoodItemTranslationDao {

@@ -1,2 +1,10 @@
-package com.adrian.infrastructure.persistence.exception;public class DatabaseAccessException {
+package com.adrian.infrastructure.persistence.exception;
+
+public class DatabaseAccessException extends RuntimeException {
+    public DatabaseAccessException(String message, Throwable cause) {
+        super(message, cause);
+    }
+    public DatabaseAccessException(String message) {
+        super(message);
+    }
 }

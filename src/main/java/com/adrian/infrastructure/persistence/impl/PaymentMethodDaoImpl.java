@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 
 import com.adrian.domain.entities.PaymentMethod;
@@ -7,10 +7,12 @@ import com.adrian.infrastructure.persistence.dao.PaymentMethodDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.springframework.stereotype.Repository;
 
 /**
  * JDBC-реалізація PaymentMethodDao через AbstractJdbcDao.
  */
+@Repository
 public class PaymentMethodDaoImpl
     extends AbstractJdbcDao<PaymentMethod, Long>
     implements PaymentMethodDao {

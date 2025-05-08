@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 import com.adrian.infrastructure.persistence.dao.GenericDao;
 import com.adrian.infrastructure.persistence.util.ConnectionHolder;
@@ -7,10 +7,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
 /**
  * Абстрактна реалізація GenericDao через JDBC.
  */
+
+@Repository
 public abstract class AbstractJdbcDao<T, ID> implements GenericDao<T, ID> {
 
     protected abstract String getTableName();

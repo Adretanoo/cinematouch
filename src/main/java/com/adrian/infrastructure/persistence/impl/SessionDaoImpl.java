@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 import com.adrian.domain.entities.Session;
 import com.adrian.infrastructure.persistence.dao.SessionDao;
@@ -6,10 +6,13 @@ import com.adrian.infrastructure.persistence.dao.SessionDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.springframework.stereotype.Repository;
 
 /**
  * JDBC implementation for SessionDao.
  */
+
+@Repository
 public class SessionDaoImpl extends AbstractJdbcDao<Session, Long> implements SessionDao {
 
     @Override

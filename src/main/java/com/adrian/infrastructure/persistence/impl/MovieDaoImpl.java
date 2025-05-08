@@ -1,4 +1,4 @@
-package com.adrian.infrastructure.persistence.dao.impl;
+package com.adrian.infrastructure.persistence.impl;
 
 import com.adrian.domain.entities.Movie;
 import com.adrian.infrastructure.persistence.dao.MovieDao;
@@ -6,10 +6,12 @@ import com.adrian.infrastructure.persistence.dao.MovieDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.springframework.stereotype.Repository;
 
 /**
  * Реалізація MovieDao через AbstractJdbcDao.
  */
+@Repository
 public class MovieDaoImpl extends AbstractJdbcDao<Movie, Long> implements MovieDao {
 
     @Override
