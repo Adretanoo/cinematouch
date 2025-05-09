@@ -1,4 +1,5 @@
 package com.adrian.infrastructure.persistence.util;
+
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,17 +11,20 @@ import java.util.concurrent.BlockingQueue;
 
 public class ConnectionManager {
 
-    private static final String URL_KEY = "db.url";
-    private static final String USERNAME_KEY = "db.username";
-    private static final String PASSWORD_KEY = "db.password";
-    private static final String POOL_SIZE_KEY = "db.pool.size";
-    private static final int DEFAULT_POOL_SIZE = 5;
+    private static final String URL_KEY           = "db.url";
+    private static final String USERNAME_KEY      = "db.username";
+    private static final String PASSWORD_KEY      = "db.password";
+    private static final String POOL_SIZE_KEY     = "db.pool.size";
+    private static final String AUTO_COMMIT_KEY   = "db.auto.commit";
+    private static final int    DEFAULT_POOL_SIZE = 5;
 
     private static BlockingQueue<Connection> pool;
-    private static List<Connection> sourceConnections;
+    private static List<Connection>           sourceConnections;
+    private static boolean                    defaultAutoCommit;
 
     static {
         loadDriver();
+        initAutoCommit();
         initConnectionPool();
     }
 
@@ -34,6 +38,11 @@ public class ConnectionManager {
         }
     }
 
+    private static void initAutoCommit() {
+        String ac = PropertiesUtil.get(AUTO_COMMIT_KEY);
+        defaultAutoCommit = ac == null ? false : Boolean.parseBoolean(ac);
+    }
+
     private static void initConnectionPool() {
         int size = DEFAULT_POOL_SIZE;
         String poolSize = PropertiesUtil.get(POOL_SIZE_KEY);
@@ -45,15 +54,21 @@ public class ConnectionManager {
         sourceConnections = new ArrayList<>(size);
 
         for (int i = 0; i < size; i++) {
-            Connection connection = open();
-            Connection proxyConnection = (Connection) Proxy.newProxyInstance(
+            Connection realConn = open();
+            Connection proxyConn = (Connection) Proxy.newProxyInstance(
                 ConnectionManager.class.getClassLoader(),
                 new Class[]{Connection.class},
-                (proxy, method, args) ->
-                    method.getName().equals("close") ? pool.add((Connection) proxy) : method.invoke(connection, args)
+                (proxy, method, args) -> {
+                    if ("close".equals(method.getName())) {
+                        // безопасный возврат прокси в пул без исключений
+                        pool.offer((Connection) proxy);
+                        return null;
+                    }
+                    return method.invoke(realConn, args);
+                }
             );
-            pool.add(proxyConnection);
-            sourceConnections.add(connection);
+            pool.add(proxyConn);
+            sourceConnections.add(realConn);
         }
     }
 
@@ -67,11 +82,13 @@ public class ConnectionManager {
 
     private static Connection open() {
         try {
-            return DriverManager.getConnection(
+            Connection conn = DriverManager.getConnection(
                 PropertiesUtil.get(URL_KEY),
                 PropertiesUtil.get(USERNAME_KEY),
                 PropertiesUtil.get(PASSWORD_KEY)
             );
+            conn.setAutoCommit(defaultAutoCommit);
+            return conn;
         } catch (SQLException e) {
             throw new RuntimeException("Не вдалося відкрити з'єднання з базою даних", e);
         }
@@ -87,4 +104,3 @@ public class ConnectionManager {
         }
     }
 }
-

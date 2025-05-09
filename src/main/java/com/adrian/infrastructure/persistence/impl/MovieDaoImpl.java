@@ -3,16 +3,42 @@ package com.adrian.infrastructure.persistence.impl;
 import com.adrian.domain.entities.Movie;
 import com.adrian.infrastructure.persistence.dao.MovieDao;
 
+import com.adrian.infrastructure.persistence.exception.DatabaseAccessException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Repository;
+import java.sql.Connection;
+import com.adrian.infrastructure.persistence.util.ConnectionHolder;
 
 /**
  * Реалізація MovieDao через AbstractJdbcDao.
  */
 @Repository
 public class MovieDaoImpl extends AbstractJdbcDao<Movie, Long> implements MovieDao {
+
+    private static final String FIND_RECENT_SQL =
+        "SELECT * FROM movie ORDER BY id DESC LIMIT ?";
+
+    @Override
+    public List<Movie> findRecent(int count) {
+        try (Connection conn = ConnectionHolder.getConnection();
+            PreparedStatement ps = conn.prepareStatement(FIND_RECENT_SQL)) {
+
+            ps.setInt(1, count);
+            try (ResultSet rs = ps.executeQuery()) {
+                List<Movie> list = new ArrayList<>();
+                while (rs.next()) {
+                    list.add(mapRow(rs));
+                }
+                return list;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseAccessException("Error fetching recent movies", e);
+        }
+    }
 
     @Override
     protected String getTableName() {
@@ -71,6 +97,7 @@ public class MovieDaoImpl extends AbstractJdbcDao<Movie, Long> implements MovieD
         m.setPosterImageUrl(rs.getString("poster_image_url"));
         return m;
     }
+
 
     @Override
     protected Long getEntityId(Movie m) {

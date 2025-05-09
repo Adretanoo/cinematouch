@@ -1,36 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="
+           http://maven.apache.org/POM/4.0.0
+           http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+  <modelVersion>4.0.0</modelVersion>
   <groupId>com.adrian</groupId>
   <artifactId>cinematouch</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+  <properties>
+    <java.version>23</java.version>
+    <javafx.version>23.0.1</javafx.version>
+    <lombok.version>1.18.28</lombok.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+    <lombok.version>1.18.38</lombok.version>
+
+  </properties>
 
   <dependencies>
+    <!-- JavaFX-модулі -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>23.0.1</version>
+      <version>${javafx.version}</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>23.0.1</version>
+      <version>${javafx.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-graphics</artifactId>
-      <version>23.0.1</version>
-    </dependency>
+
+      <!-- Core Ikonli -->
+      <dependency>
+        <groupId>org.kordamp.ikonli</groupId>
+        <artifactId>ikonli-core</artifactId>
+        <version>12.3.1</version>
+      </dependency>
+
+      <!-- Пак із FontAwesome 5 (або оберіть material-pack тощо) -->
+      <dependency>
+        <groupId>org.kordamp.ikonli</groupId>
+        <artifactId>ikonli-fontawesome5-pack</artifactId>
+        <version>12.3.1</version>
+      </dependency>
+
+      <!-- JavaFX-інтеграція -->
+      <dependency>
+        <groupId>org.kordamp.ikonli</groupId>
+        <artifactId>ikonli-javafx</artifactId>
+        <version>12.3.1</version>
+      </dependency>
+
+    <!-- Інші ваші залежності -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.7.2</version>
     </dependency>
-
     <dependency>
       <groupId>jakarta.persistence</groupId>
       <artifactId>jakarta.persistence-api</artifactId>
@@ -44,13 +73,18 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.38</version>
+      <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
       <version>8.0.1.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>5.3.30</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -96,11 +130,45 @@
     </dependency>
   </dependencies>
 
-  <properties>
-    <maven.compiler.source>23</maven.compiler.source>
-    <maven.compiler.target>23</maven.compiler.target>
-    <lombok.version>1.18.30</lombok.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.plugin.version}</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.8</version>
+        <executions>
+          <execution>
+            <id>default-cli</id>
+            <configuration>
+              <mainClass>com.adrian.Main</mainClass>
+              <launcher>app</launcher>
+              <jlinkZipName>app</jlinkZipName>
+              <jlinkImageName>app</jlinkImageName>
+              <noManPages>true</noManPages>
+              <stripDebug>true</stripDebug>
+              <noHeaderFiles>true</noHeaderFiles>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

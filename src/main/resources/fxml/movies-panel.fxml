@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+  fx:controller="com.adrian.application.panel.MoviesPanel"
+  stylesheets="/style/admin-dashboard.css">
+
+  <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10"
+    AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+
+    <Label text="Movies Management" styleClass="section-title"/>
+
+    <TableView fx:id="tblMovies" prefHeight="300">
+      <columns>
+        <TableColumn fx:id="colId"           text="ID"            prefWidth="50"/>
+        <TableColumn fx:id="colTitle"        text="Title"         prefWidth="150"/>
+        <TableColumn fx:id="colDuration"     text="Duration"      prefWidth="80"/>
+        <TableColumn fx:id="colGenre"        text="Genre"         prefWidth="100"/>
+        <TableColumn fx:id="colRating"       text="Rating"        prefWidth="80"/>
+        <TableColumn fx:id="colDescription"  text="Description"   prefWidth="200"/>
+        <TableColumn fx:id="colPoster"       text="Poster URL"    prefWidth="200"/>
+      </columns>
+    </TableView>
+
+
+    <HBox spacing="10">
+      <Button fx:id="btnAdd"    text="Add"    styleClass="btn-primary"/>
+      <Button fx:id="btnEdit"   text="Edit"   styleClass="btn-secondary" disable="true"/>
+      <Button fx:id="btnDelete" text="Delete" styleClass="btn-danger"    disable="true"/>
+    </HBox>
+
+  </VBox>
+</AnchorPane>

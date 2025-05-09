@@ -34,7 +34,6 @@ public class KioskApp extends Application {
         Pane welcomePane = FXMLLoader.load(getClass().getResource("/fxml/welcome-page.fxml"));
         root.getChildren().setAll(welcomePane);
 
-        // Клік по welcome -> перехід до Selection
         welcomePane.setOnMouseClicked((MouseEvent e) -> switchToSelectionScreen());
 
         primaryStage.setTitle("Cinema Kiosk");
@@ -62,10 +61,8 @@ public class KioskApp extends Application {
                 fadeIn.setToValue(1.0);
                 fadeIn.play();
 
-                // ▶️ Запуск таймера бездіяльності на 30 секунд
                 startInactivityTimer();
 
-                // ⛔ Скидання таймера при будь-якій взаємодії
                 selectionPane.setOnMouseMoved(ev -> resetInactivityTimer());
                 selectionPane.setOnMouseClicked(ev -> resetInactivityTimer());
             });

@@ -2,7 +2,6 @@ package com.adrian.infrastructure.persistence.impl;
 
 import com.adrian.infrastructure.persistence.dao.GenericDao;
 import com.adrian.infrastructure.persistence.util.ConnectionHolder;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * Абстрактна реалізація GenericDao через JDBC.
  */
 @Repository
-public abstract class AbstractJdbcDao<T, ID> implements GenericDao<T, ID> {
+public abstract class AbstractJdbcDao<T, ID> implements GenericDao<T, ID>{
 
     protected abstract String getTableName();
     protected abstract String getIdColumn();
@@ -60,7 +59,7 @@ public abstract class AbstractJdbcDao<T, ID> implements GenericDao<T, ID> {
         }
     }
 
-    private void update(T entity) {
+    public void update(T entity) {
         String sql = String.format(
             "UPDATE %s SET %s WHERE %s = ?",
             getTableName(), getUpdateAssignments(), getIdColumn()

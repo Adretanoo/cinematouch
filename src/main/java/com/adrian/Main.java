@@ -1,26 +1,32 @@
 package com.adrian;
-import com.adrian.domain.entities.Movie;
-import com.adrian.infrastructure.persistence.PersistenceContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        // Завантажуємо FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin-dashboard.fxml"));
+        Parent root = loader.load();
+
+        // Створюємо сцену та підключаємо CSS
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/style/admin-dashboard.css").toExternalForm());
+
+        // Налаштовуємо та показуємо вікно
+        primaryStage.setTitle("Admin Panel");
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(1200);
+        primaryStage.setHeight(800);
+        primaryStage.show();
+    }
+
     public static void main(String[] args) {
-        var ctx = new AnnotationConfigApplicationContext("com.adrian.infrastructure.persistence");
-        PersistenceContext uow = ctx.getBean(PersistenceContext.class);
-
-        Movie movie = new Movie();
-        movie.setTitle("UOW Test");
-        movie.setDuration(99);
-        movie.setGenre("Test");
-        movie.setRating("G");
-        movie.setDescription("...");
-        movie.setPosterImageUrl(null);
-
-        uow.registerNew(movie);
-        uow.commit();
-        System.out.println("Inserted Movie ID = " + movie.getId());
-
-        ctx.close();
+        launch(args);
     }
 }

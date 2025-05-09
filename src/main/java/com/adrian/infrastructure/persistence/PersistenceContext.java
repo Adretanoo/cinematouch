@@ -1,24 +1,15 @@
 package com.adrian.infrastructure.persistence;
 
-import static org.postgresql.core.ConnectionFactory.openConnection;
-
 import com.adrian.domain.entities.*;
 import com.adrian.infrastructure.persistence.dao.*;
 import com.adrian.infrastructure.persistence.exception.DatabaseAccessException;
 import com.adrian.infrastructure.persistence.util.ConnectionHolder;
 import com.adrian.infrastructure.persistence.util.ConnectionManager;
-import jakarta.annotation.PostConstruct;
-import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
 
-/**
- * Unit of Work: збирає всі зміни (створення, оновлення, видалення)
- * і застосовує їх в одній транзакції через єдине Connection.
- */
-@Component
 public class PersistenceContext {
 
     private final MovieDao movieDao;
@@ -63,11 +54,7 @@ public class PersistenceContext {
         this.paymentMethodDao = paymentMethodDao;
         this.paymentDao = paymentDao;
         this.promotionDao = promotionDao;
-        initializeConnection();
-    }
 
-    @PostConstruct
-    private void init() {
         repoMap.put(Movie.class, movieDao);
         repoMap.put(Session.class, sessionDao);
         repoMap.put(Seat.class, seatDao);
@@ -79,6 +66,8 @@ public class PersistenceContext {
         repoMap.put(PaymentMethod.class, paymentMethodDao);
         repoMap.put(Payment.class, paymentDao);
         repoMap.put(Promotion.class, promotionDao);
+
+        initializeConnection();
     }
 
     private void initializeConnection() {
@@ -88,6 +77,7 @@ public class PersistenceContext {
             }
             connection = ConnectionManager.get();
             connection.setAutoCommit(false);
+            ConnectionHolder.setConnection(connection);
         } catch (SQLException e) {
             throw new DatabaseAccessException("Помилка ініціалізації з'єднання", e);
         }
@@ -123,47 +113,44 @@ public class PersistenceContext {
     }
 
     public void commit() {
-        // 1) Відкриваємо єдине з’єднання та вимикаємо auto-commit
         initializeConnection();
 
-        // 2) Встановлюємо це з’єднання у ThreadLocal, щоб DAO могли його отримати
-        ConnectionHolder.setConnection(connection);
-
         try {
-            // 3) INSERT нових сутностей
             for (Object e : newEntities) {
                 getDao(e.getClass()).save(e);
             }
-            // 4) UPDATE змінених
-            for (Map.Entry<Object,Object> en : updates.entrySet()) {
+            for (var en : updates.entrySet()) {
                 getDao(en.getValue().getClass()).save(en.getValue());
             }
-            // 5) DELETE позначених
             for (Object e : deletedEntities) {
                 Object id = extractId(e);
                 getDao(e.getClass()).deleteById(id);
             }
-
-            // 6) Коміт транзакції
             connection.commit();
         } catch (Exception ex) {
-            try {
-                connection.rollback();
-            } catch (SQLException ignore) {}
+            try { connection.rollback(); } catch (SQLException ignore) {}
             throw new DatabaseAccessException("Помилка виконання транзакції", ex);
         } finally {
-            // 7) Очищаємо реєстри
             newEntities.clear();
             updates.clear();
             deletedEntities.clear();
-            // 8) Очищаємо ThreadLocal
             ConnectionHolder.clearConnection();
-            // 9) Закриваємо з’єднання
-            try {
-                connection.close();
-            } catch (SQLException ignore) {}
+            try { connection.close(); } catch (SQLException ignore) {}
+            // Відразу відновлюємо для наступних звернень
+            initializeConnection();
         }
     }
 
-
+    // Гетери для DAO
+    public MovieDao getMovieDao() { return movieDao; }
+    public SessionDao getSessionDao() { return sessionDao; }
+    public SeatDao getSeatDao() { return seatDao; }
+    public TicketDao getTicketDao() { return ticketDao; }
+    public FoodItemDao getFoodItemDao() { return foodItemDao; }
+    public FoodItemTranslationDao getFoodItemTranslationDao() { return foodItemTranslationDao; }
+    public OrderDao getOrderDao() { return orderDao; }
+    public OrderFoodItemDao getOrderFoodItemDao() { return orderFoodItemDao; }
+    public PaymentMethodDao getPaymentMethodDao() { return paymentMethodDao; }
+    public PaymentDao getPaymentDao() { return paymentDao; }
+    public PromotionDao getPromotionDao() { return promotionDao; }
 }

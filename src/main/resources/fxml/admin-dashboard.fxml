@@ -1,38 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
   fx:controller="com.adrian.application.controller.AdminDashboardController"
-  stylesheets="@/style/admin-dashboard.css">
+  stylesheets="/style/admin-dashboard.css">
+
 
   <left>
-    <VBox fx:id="sidebar" spacing="10" styleClass="sidebar">
-      <Label text="Admin Panel" styleClass="sidebar-title" />
-      <Button text="🎬 Movies" styleClass="nav-button" />
-      <Button text="📅 Sessions" styleClass="nav-button" />
-      <Button text="🎟 Tickets" styleClass="nav-button" />
-      <Button text="🍔 Food Items" styleClass="nav-button" />
-      <Button text="🛒 Orders" styleClass="nav-button" />
-      <Button text="💳 Payments" styleClass="nav-button" />
-      <Button text="👥 Staff" styleClass="nav-button" />
-      <Button text="🎁 Promotions" styleClass="nav-button" />
+    <VBox fx:id="sidebar" spacing="8" alignment="TOP_LEFT" styleClass="sidebar">
+      <Label text="AdminLTE-Lite" styleClass="sidebar-title"/>
+
+      <Button fx:id="dashboardBtn" styleClass="nav-button">
+        <graphic>
+          <FontIcon iconLiteral="fas-home" styleClass="icon"/>
+        </graphic>
+        <text>Dashboard</text>
+      </Button>
+
+      <Button fx:id="moviesBtn" styleClass="nav-button">
+        <graphic>
+          <FontIcon iconLiteral="fas-film" styleClass="icon"/>
+        </graphic>
+        <text>Movies</text>
+      </Button>
+
+      <Button fx:id="sessionsBtn" styleClass="nav-button">
+        <graphic>
+          <FontIcon iconLiteral="fas-calendar-alt" styleClass="icon"/>
+        </graphic>
+        <text>Sessions</text>
+      </Button>
+
+      <Button fx:id="ticketsBtn" styleClass="nav-button">
+        <graphic>
+          <FontIcon iconLiteral="fas-ticket-alt" styleClass="icon"/>
+        </graphic>
+        <text>Tickets</text>
+      </Button>
+
+      <Button fx:id="foodBtn" styleClass="nav-button">
+        <graphic>
+          <FontIcon iconLiteral="fas-hotdog" styleClass="icon"/>
+        </graphic>
+        <text>Food Items</text>
+      </Button>
+
+      <Button fx:id="ordersBtn" styleClass="nav-button">
+        <graphic>
+          <FontIcon iconLiteral="fas-shopping-cart" styleClass="icon"/>
+        </graphic>
+        <text>Orders</text>
+      </Button>
+
+      <Button fx:id="promoBtn" styleClass="nav-button">
+        <graphic>
+          <FontIcon iconLiteral="fas-tags" styleClass="icon"/>
+        </graphic>
+        <text>Promotions</text>
+      </Button>
+
+      <Region VBox.vgrow="ALWAYS"/>
+
+      <Button fx:id="settingsBtn" styleClass="nav-button">
+        <graphic>
+          <FontIcon iconLiteral="fas-cog" styleClass="icon"/>
+        </graphic>
+        <text>Settings</text>
+      </Button>
+
+      <Button fx:id="logoutBtn" styleClass="logout-button">
+        <graphic>
+          <FontIcon iconLiteral="fas-sign-out-alt" styleClass="icon"/>
+        </graphic>
+        <text>Logout</text>
+      </Button>
     </VBox>
   </left>
 
-  <top>
-    <HBox styleClass="header-bar" spacing="10" alignment="CENTER_RIGHT">
-      <Label text="Admin Dashboard" styleClass="header-title" />
-      <Region HBox.hgrow="ALWAYS" />
-      <Button text="Logout" styleClass="logout-button" />
-    </HBox>
-  </top>
-
+  <!-- Головний контент -->
   <center>
     <StackPane fx:id="mainContent" styleClass="main-content">
-      <Label text="👈 Select a section from the menu" styleClass="placeholder-text" />
+      <Label text="Виберіть розділ…" styleClass="placeholder"/>
     </StackPane>
   </center>
 </BorderPane>

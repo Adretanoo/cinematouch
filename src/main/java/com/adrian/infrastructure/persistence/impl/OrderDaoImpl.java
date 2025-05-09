@@ -14,14 +14,36 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class OrderDaoImpl extends AbstractJdbcDao<Order, Long> implements OrderDao {
 
-    @Override protected String getTableName()            { return "orders"; }
-    @Override protected String getIdColumn()             { return "id"; }
+    @Override
+    protected String getTableName() {
+        return "orders";
+    }
+
+    @Override
+    protected String getIdColumn() {
+        return "id";
+    }
 
     // Тепер включаємо food_item_ids
-    @Override protected String getInsertColumns()        { return "ticket_id, total_price, payment_status, food_item_ids"; }
-    @Override protected String getInsertPlaceholders()   { return "?, ?, ?, ?"; }
-    @Override protected String getUpdateAssignments()    { return "ticket_id = ?, total_price = ?, payment_status = ?, food_item_ids = ?"; }
-    @Override protected int    getUpdateParameterCount() { return 4; }
+    @Override
+    protected String getInsertColumns() {
+        return "ticket_id, total_price, payment_status, food_item_ids";
+    }
+
+    @Override
+    protected String getInsertPlaceholders() {
+        return "?, ?, ?, ?";
+    }
+
+    @Override
+    protected String getUpdateAssignments() {
+        return "ticket_id = ?, total_price = ?, payment_status = ?, food_item_ids = ?";
+    }
+
+    @Override
+    protected int getUpdateParameterCount() {
+        return 4;
+    }
 
     @Override
     protected void setInsertParameters(PreparedStatement ps, Order o) throws SQLException {
@@ -58,7 +80,7 @@ public class OrderDaoImpl extends AbstractJdbcDao<Order, Long> implements OrderD
         if (sqlArray != null) {
             Object[] raw = (Object[]) sqlArray.getArray();
             List<Long> ids = Arrays.stream(raw)
-                .map(elem -> elem == null ? null : ((Number)elem).longValue())
+                .map(elem -> elem == null ? null : ((Number) elem).longValue())
                 .collect(Collectors.toList());
             o.setFoodItemIds(ids);
         } else {
@@ -70,8 +92,12 @@ public class OrderDaoImpl extends AbstractJdbcDao<Order, Long> implements OrderD
 
 
     @Override
-    protected Long getEntityId(Order o) { return o.getId(); }
+    protected Long getEntityId(Order o) {
+        return o.getId();
+    }
 
     @Override
-    protected void setEntityId(Order o, Long id) { o.setId(id); }
+    protected void setEntityId(Order o, Long id) {
+        o.setId(id);
+    }
 }
